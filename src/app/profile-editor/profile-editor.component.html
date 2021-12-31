@@ -1,0 +1,46 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+
+    <mat-label>First Name:</mat-label>
+    <input type="text" matInput formControlName="firstName"  placeholder="Ex. pat@example.com">
+    <mat-error *ngIf="!profileForm.controls['firstName'].hasError('minlength') && profileForm.get('firstName')?.invalid && (profileForm?.get('firstName')?.dirty || profileForm.get('firstName')?.touched)">
+      First Name is Invalid!
+    </mat-error>
+    <mat-error *ngIf="(profileForm?.get('firstName')?.dirty || profileForm.get('firstName')?.touched) && profileForm.controls['firstName'].hasError('minlength')">
+      Username must be at least 6 characters
+    </mat-error>
+    <mat-error *ngIf="profileForm.get('firstName')?.invalid && (profileForm?.get('firstName')?.dirty || profileForm.get('firstName')?.touched) && profileForm.controls['firstName'].hasError('required')">
+      First Name Required
+    </mat-error>
+
+
+  <label for="last-name">Last Name: </label>
+  <input id="last-name" type="text" formControlName="lastName">
+
+  <div formGroupName="address">
+    <h2>Address</h2>
+
+    <label for="street">Street: </label>
+    <input id="street" type="text" formControlName="street">
+
+    <label for="city">City: </label>
+    <input id="city" type="text" formControlName="city">
+
+    <label for="state">State: </label>
+    <input id="state" type="text" formControlName="state">
+
+    <label for="zip">Zip Code: </label>
+    <input id="zip"type="text" formControlName="zip">
+  </div>
+
+  <p>Complete the form to enable button.</p>
+  <button type="submit">Submit</button>
+</form>
+
+<hr>
+
+<p>Form Value: {{ profileForm.value | json }}</p>
+
+<p>Form Status: {{ profileForm.status }}</p>
+
+<button (click)="updateProfile()">Update Profile</button>
